@@ -5,19 +5,20 @@ import * as yup from "yup";
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 export default function Generator() {
+    
     const [password1,setPassword1]=useState("");
     const [isGenerated,setIsGenerated]=useState(false);
     const [islower,setIslower]=useState(true);
     const [isupper,setIsupper]=useState(false);
     const [isnumber,setIsnumber]=useState(false);
     const [isspecial,setIsspecial]=useState(false);
-    let character:String="";
+    let character="";
     
 
     const validate=yup.object().shape({
         passwordLength:yup.number().min(4,"Minimum length is 4").max(16,"Maximum length is 16").required("Length of Password is required")
     });
-    function generatePassword(passwordLength:number){
+    function generatePassword(passwordLength){
         
         if(isupper)
            character+="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -28,13 +29,13 @@ export default function Generator() {
         if(isspecial)
             character+="!@#$%^&*_-?/|~`"
 
-         let result:String=createPassword(passwordLength,character)
-         setPassword1(result)
+         let result=createPassword(passwordLength,character)
+         setPassword1(result) 
         setIsGenerated(true)
     }
-    function createPassword(passwordLength:number,character:String){
-        let password:String ="";
-        for (let index:number = 0; index<passwordLength; index++) {
+    function createPassword(passwordLength,character){
+        let password ="";
+        for (let index = 0; index<passwordLength; index++) {
             password += String(character[Math.round(Math.random()*(character.length-1))]);
         }
         return password
